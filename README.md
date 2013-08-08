@@ -1,8 +1,8 @@
-# Bugs: Can't code without them, so code against them!
+## Bugs: Can't code without them, so code against them!
 
 Talk for PyTexas 2013 on concepts of coding defensively
 
-## Abstract proposal
+### Abstract proposal
 
 There are a lot of approaches and philosophies to prevent bugs in software, but
 the truth is they are unavoidable in complex, modern systems.  So, what's a
@@ -22,7 +22,7 @@ The presentation requires [landslide](https://github.com/adamzap/landslide)
 to view.  This can be installed via pip and the included `requirements.txt`
 file (`pip install -r requirements.txt`).
 
-### Live presentation slides
+#### Live presentation slides
 
 You can view a live version of the presentation
 [here](http://durden.github.com/defensive_coding).
