@@ -1,5 +1,7 @@
 # Bugs: Can't code without them, so code against them!
 
+Talk for PyTexas 2013 on concepts of coding defensively
+
 ## Abstract proposal
 
 There are a lot of approaches and philosophies to prevent bugs in software, but
