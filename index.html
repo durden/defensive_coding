@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Bugs:</title>
+    <title>Bugs</title>
     <!-- Styles -->
     
     <link rel="stylesheet" media="print" href="ribbon/css/print.css">
@@ -18,7 +18,7 @@
         <section class="slide">
             <div>
                 
-                    <header><h1>Bugs:</h1></header>
+                    <header><h1>Bugs</h1></header>
                 
                 
                     <section class="slide-content"><h2>Can't code without them, so code against them!</h2>
@@ -65,10 +65,48 @@
         <section class="slide">
             <div>
                 
-                    <header><h1>A story</h1></header>
+                    <header><h1>Shipped it!!</h1></header>
                 
                 
-                    <section class="slide-content"><p><img src="images/happy_corgi.gif"/></p></section>
+                    <section class="slide-content"><p><center><img src="images/happy_corgi.jpeg"/></center></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: truth.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Shipped it!?</h1></header>
+                
+                
+                    <section class="slide-content"><p><center><img src="images/confused_corgi.jpg"/></center></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: defensive_style.md -->
+        <section class="slide quote">
+            <div>
+                
+                    <header><h1>Defensive Programming</h1></header>
+                
+                
+                    <section class="slide-content"><p>A form of defensive design intended to ensure the continuing function of a
+piece of software in spite of unforeseeable usage of said software.</p>
+<p>Defensive programming techniques are used especially when a piece of software
+could be misused mischievously or inadvertently to catastrophic effect.</p>
+<p><a href="http://en.wikipedia.org/wiki/Defensive_programming">Defensive Programming</a></p></section>
                 
                 <div class="presenter_notes">
                     <section>
@@ -82,38 +120,14 @@
         <section class="slide">
             <div>
                 
-                    <header><h1>Defensive coding</h1></header>
-                
-                
-                <div class="presenter_notes">
-                    <section>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
-      <!-- slide source: guidelines.md -->
-        <section class="slide">
-            <div>
-                
                     <header><h1>Guidelines</h1></header>
                 
                 
-                <div class="presenter_notes">
-                    <section>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
-      <!-- slide source: python_tools.md -->
-        <section class="slide">
-            <div>
-                
-                    <header><h1>Python Tools</h1></header>
-                
+                    <section class="slide-content"><ul>
+<li>Every line of code is a liability</li>
+<li>Codify your assumptions</li>
+<li>Executable documentation is preferable</li>
+</ul></section>
                 
                 <div class="presenter_notes">
                     <section>
@@ -123,12 +137,47 @@
             </div>
         </section>
      
-      <!-- slide source: example.md -->
+      <!-- slide source: defensive_style.md -->
         <section class="slide">
             <div>
                 
-                    <header><h1>Example bugs</h1></header>
+                    <header><h1>Python tools</h1></header>
                 
+                
+                    <section class="slide-content"><ul>
+<li>Asserts</li>
+<li>Logging</li>
+<li>Unit tests</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: defensive_style.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Example</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">original_data_range</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span>     <span class="c"># 1-D numpy array of data</span>
+<span class="lineno"> 5</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno"> 8</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno"> 9</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">10</span> 
+<span class="lineno">11</span>     <span class="k">return</span> <span class="n">ratio</span>
+</pre></div>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
@@ -145,8 +194,194 @@
                     <header><h1>Asserts</h1></header>
                 
                 
+                    <section class="slide-content"><ul>
+<li>Not just for unit tests</li>
+<li>Check assumption, raise AssertionError</li>
+</ul></section>
+                
                 <div class="presenter_notes">
                     <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Asserts</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">button_state</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="c"># 1-D numpy array of data</span>
+<span class="lineno"> 3</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
+<span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno"> 7</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno"> 8</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno"> 9</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
+<span class="lineno">10</span>             <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; min (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">)&#39;</span><span class="p">)</span>
+<span class="lineno">11</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
+<span class="lineno">12</span>             <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; max (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">)&#39;</span><span class="p">)</span>
+<span class="lineno">13</span>     <span class="k">return</span> <span class="n">ratio</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Executable documentation</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>doctests++</li>
+<li>Runs alongside production code</li>
+<li>Enabled by default</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Close to source</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Debugging is hard</li>
+<li>Close gap between symptom and cause</li>
+<li>Alert return conditions</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Invalid parameters</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Write good messages</li>
+<li>Avoid unreproducible bugs</li>
+<li>New use cases</li>
+<li>Invalid assumptions about environment</li>
+<li>Documentation oversights</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Assert downsides</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Debug mode</li>
+<li>Increased noise</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Avoid this</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">button_state</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
+<span class="lineno"> 3</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>     <span class="c"># 1-D numpy array of data</span>
+<span class="lineno"> 8</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
+<span class="lineno"> 9</span>     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_data</span><span class="p">),</span> <span class="s">&#39;Empty live data&#39;</span>
+<span class="lineno">10</span> 
+<span class="lineno">11</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">12</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
+<span class="lineno">13</span> 
+<span class="lineno">14</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno">15</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">17</span> 
+<span class="lineno">18</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">19</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">20</span>     <span class="k">return</span> <span class="n">ratio</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Good assert usage</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Check return values, not inputs</li>
+<li>Document usage in style guide</li>
+<li>Don't ruin duck-typing</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Checking returns can allow you to complain about inputs if you get wrong
+  answer, so it's a 2 for 1</li>
+</ul>
                     
                     </section>
                 </div>
