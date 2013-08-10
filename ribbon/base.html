@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>{{ head_title }}</title>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow|PT+Mono' rel='stylesheet' type='text/css'>
     <!-- Styles -->
     {% if embed %}
     <style type="text/css" media="print">
@@ -54,25 +53,7 @@
 		just remove “progress” element.
 		-->
 	<div class="progress"><div></div></div>
-    <!-- Javascripts -->
-        {% if embed %}
-        <script>
-        {{ js.contents }}
-        </script>
-        {% else %}
-        <script type="text/javascript" src="{{ js.path_url }}"></script>
-        {% endif %}
-        {% for js in user_js %}
-        {% if embed %}
-        <script>
-            {{ js.contents }}
-        </script>
-        {% else %}
-        <script type="text/javascript" src="{{ js.path_url }}"></script>
-        {% endif %}
-        {% endfor %}
-    <!-- /Javascripts -->
-
+	<script src="ribbon/js/script.js"></script>
 	<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
 </body>
 </html>
