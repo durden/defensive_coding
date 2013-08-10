@@ -138,7 +138,7 @@ body {
         background:none;
         white-space:pre;
         line-height:48px;
-        font-size: 32px;
+        font-size: 22px;
 		font-family:'PT Mono', monospace;
         &:before {
             position:absolute;
@@ -407,6 +407,14 @@ body {
 			}
 		}
 	}
+
+.quote {
+    font:30px/1 'PT Sans', sans-serif;
+    p {
+        padding-top: 15px;
+        line-height: 40px;
+    }
+}
 
 .presenter_notes {
     display: none;

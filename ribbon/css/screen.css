@@ -166,7 +166,7 @@ body {
   background: none;
   white-space: pre;
   line-height: 48px;
-  font-size: 32px;
+  font-size: 22px;
   font-family: 'PT Mono', monospace; }
   .slide pre:before {
     position: absolute;
@@ -427,6 +427,12 @@ body {
       -moz-transition: width 0.2s linear;
       -o-transition: width 0.2s linear;
       transition: width 0.2s linear; }
+
+.quote {
+  font: 30px/1 "PT Sans", sans-serif; }
+  .quote p {
+    padding-top: 15px;
+    line-height: 40px; }
 
 .presenter_notes {
   display: none; }
