@@ -434,6 +434,12 @@ body {
     padding-top: 15px;
     line-height: 40px; }
 
+.small {
+  font: 30px/1 "PT Sans", sans-serif; }
+  .small pre {
+    padding-top: 20px;
+    line-height: 30px; }
+
 .presenter_notes {
   display: none; }
 

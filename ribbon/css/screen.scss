@@ -416,6 +416,14 @@ body {
     }
 }
 
+.small {
+    font:30px/1 'PT Sans', sans-serif;
+    pre {
+        padding-top: 20px;
+        line-height: 30px;
+    }
+}
+
 .presenter_notes {
     display: none;
     }
