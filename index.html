@@ -242,13 +242,13 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Executable documentation</h1></header>
+                    <header><h1>Assert benefits</h1></header>
                 
                 
                     <section class="slide-content"><ul>
-<li>doctests++</li>
-<li>Runs alongside production code</li>
-<li>Enabled by default</li>
+<li>Clear intent/docs</li>
+<li>Complain early and often</li>
+<li>Debug info when it counts</li>
 </ul></section>
                 
                 <div class="presenter_notes">
@@ -263,7 +263,29 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Close to source</h1></header>
+                    <header><h1>Clear intent</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>doctests++</li>
+<li>Runs alongside production code</li>
+<li>Enabled by default</li>
+<li>Executable documentation</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Complain early, often</h1></header>
                 
                 
                     <section class="slide-content"><ul>
@@ -284,14 +306,17 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Invalid parameters</h1></header>
+                    <header><h1>Debug info when it counts</h1></header>
                 
                 
                     <section class="slide-content"><ul>
-<li>Write good messages</li>
-<li>Avoid unreproducible bugs</li>
-<li>New use cases</li>
+<li>Good messages include parameters and local state</li>
 <li>Invalid assumptions about environment</li>
+<li>Avoid unreproducible bugs</li>
+</ul>
+<h2>More information leads to:</h2>
+<ul>
+<li>New use cases</li>
 <li>Documentation oversights</li>
 </ul></section>
                 
@@ -311,12 +336,21 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 
                     <section class="slide-content"><ul>
-<li>Debug mode</li>
-<li>Increased noise</li>
-</ul></section>
+<li>Only available in debug mode</li>
+<li>Increased code noise</li>
+<li>No dynamic control</li>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Use -O to run in optimized mode, turns off asserts for performance</li>
+<li>Default is debug on</li>
+<li>Docs say it's clear to use for debug, not production</li>
+<li>Can't control asserts dynamically, can't assign to <strong>debug</strong></li>
+</ul>
                     
                     </section>
                 </div>
@@ -324,7 +358,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         </section>
      
       <!-- slide source: asserts.md -->
-        <section class="slide has_code">
+        <section class="slide has_code small">
             <div>
                 
                     <header><h1>Avoid this</h1></header>
@@ -336,20 +370,19 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
 <span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
 <span class="lineno"> 6</span> 
-<span class="lineno"> 7</span>     <span class="c"># 1-D numpy array of data</span>
-<span class="lineno"> 8</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
-<span class="lineno"> 9</span>     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_data</span><span class="p">),</span> <span class="s">&#39;Empty live data&#39;</span>
-<span class="lineno">10</span> 
-<span class="lineno">11</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
-<span class="lineno">12</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
-<span class="lineno">13</span> 
-<span class="lineno">14</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno">15</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">17</span> 
-<span class="lineno">18</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-<span class="lineno">19</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-<span class="lineno">20</span>     <span class="k">return</span> <span class="n">ratio</span>
+<span class="lineno"> 7</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
+<span class="lineno"> 8</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno"> 9</span> 
+<span class="lineno">10</span>     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_data</span><span class="p">),</span> <span class="s">&#39;Empty live data&#39;</span>
+<span class="lineno">11</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno">14</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">15</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">16</span> 
+<span class="lineno">17</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">18</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">19</span>     <span class="k">return</span> <span class="n">ratio</span>
 </pre></div>
 </section>
                 
@@ -395,8 +428,174 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                     <header><h1>Logging</h1></header>
                 
                 
+                    <section class="slide-content"><ul>
+<li>Multiple levels</li>
+<li>Dynamic control</li>
+<li>Tracebacks</li>
+<li>Higher-level combination with asserts</li>
+</ul></section>
+                
                 <div class="presenter_notes">
                     <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Logging levels</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Levels: exception, critical, warning, info...</li>
+<li>Temporarily cut down on debug noise</li>
+<li>Send levels to multiple locations</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Dynamic control</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Change log level dynamically</li>
+<li>Important with alternative distribution<ul>
+<li>Pyinstaller, py2exe</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Read log level from database/config file</li>
+<li>Dynamic control is big step over asserts</li>
+<li>Important b/c restarting interpreter could lose state/debug scenario</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Tracebacks</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Invaluable in error scenarios</li>
+<li>Built-in with exception level</li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Logging + asserts</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Log assertions to different file/database</li>
+<li>Lots of data-mining capabilities</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Build a low-fi analytics system by logging to database, network file, dropbox</li>
+<li>Shell scripts to collect simple text files</li>
+<li>Track what features people use</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Logging + asserts</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="lineno"> 2</span>     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+<span class="lineno"> 3</span>     <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="lineno"> 4</span>     <span class="k">try</span><span class="p">:</span>
+<span class="lineno"> 5</span>         <span class="n">throws</span><span class="p">()</span>
+<span class="lineno"> 6</span>         <span class="k">return</span> <span class="mi">0</span>
+<span class="lineno"> 7</span>     <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+<span class="lineno"> 8</span>         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Error: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">err</span><span class="p">))</span>
+<span class="lineno"> 9</span>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="lineno">10</span>         <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s">&#39;Error from throws():&#39;</span><span class="p">)</span>
+<span class="lineno">11</span>         <span class="k">return</span> <span class="mi">1</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: logging.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Logging downsides</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Difficulty maintaining consistent levels</li>
+<li>Multiple loggers can be complicated<ul>
+<li>Logging cookbook</li>
+<li>http://docs.python.org/2/howto/logging-cookbook.html</li>
+</ul>
+</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Two CS problems, naming and caching</li>
+<li>Levels == naming</li>
+<li>Be careful/mindful logging could be your best defense against a production
+  bug</li>
+</ul>
                     
                     </section>
                 </div>
@@ -418,12 +617,39 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
             </div>
         </section>
      
-      <!-- slide source: links.md -->
+      <!-- slide source: references.md -->
         <section class="slide">
             <div>
                 
                     <header><h1>Links</h1></header>
                 
+                
+                    <section class="slide-content"><ul>
+<li><a href="http://bit.ly/defensive_coding">http://bit.ly/defensive_coding</a></li>
+<li><a href="http://twitter.com/#!/durden20">@durden20</a></li>
+<li><a href="http://github.com/durden">http://github.com/durden</a></li>
+<li><a href="http://codrspace.com/durden">http://codrspace.com/durden</a></li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: references.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>&lt;/soapbox&gt;</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Questions?</li>
+</ul>
+<p><img src="images/microphone.jpg"/></p></section>
                 
                 <div class="presenter_notes">
                     <section>
