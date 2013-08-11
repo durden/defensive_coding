@@ -24,15 +24,24 @@
 
 --------------------------------------------------
 
-# Executable documentation
+# Assert benefits
+
+- Clear intent/docs
+- Complain early and often
+- Debug info when it counts
+
+--------------------------------------------------
+
+# Clear intent
 
 - doctests++
 - Runs alongside production code
 - Enabled by default
+- Executable documentation
 
 --------------------------------------------------
 
-# Close to source
+# Complain early, often
 
 - Debugging is hard
 - Close gap between symptom and cause
@@ -40,24 +49,36 @@
 
 --------------------------------------------------
 
-# Invalid parameters
+# Debug info when it counts
 
-- Write good messages
-- Avoid unreproducible bugs
-- New use cases
+- Good messages include parameters and local state
 - Invalid assumptions about environment
+- Avoid unreproducible bugs
+
+## More information leads to:
+
+- New use cases
 - Documentation oversights
 
 --------------------------------------------------
 
 # Assert downsides
 
-- Debug mode
-- Increased noise
+- Only available in debug mode
+- Increased code noise
+- No dynamic control
+
+# Presenter Notes
+
+- Use -O to run in optimized mode, turns off asserts for performance
+- Default is debug on
+- Docs say it's clear to use for debug, not production
+- Can't control asserts dynamically, can't assign to __debug__
 
 --------------------------------------------------
 
 # Avoid this
+.fx: small
 
     !python
     def normalize_ranges(button_state):
@@ -66,11 +87,10 @@
         assert button_state['datamax'] >= 0
         assert button_state['datamin'] <= button_state['datamax']
 
-        # 1-D numpy array of data
         live_data = get_column_data(button_state['colname'])
-        assert len(live_data), 'Empty live data'
-
         colspan = numpy.max(live_data) - numpy.min(live_data)
+
+        assert len(live_data), 'Empty live data'
         assert colspan >= 0, 'Colspan (%f) is negative' % (colspan)
 
         ratio = {}
