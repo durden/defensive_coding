@@ -66,12 +66,14 @@
 
 - Only available in debug mode
 - Increased code noise
+- No dynamic control
 
 # Presenter Notes
 
 - Use -O to run in optimized mode, turns off asserts for performance
 - Default is debug on
 - Docs say it's clear to use for debug, not production
+- Can't control asserts dynamically, can't assign to __debug__
 
 --------------------------------------------------
 
