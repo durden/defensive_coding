@@ -22,7 +22,7 @@
                 
                 
                     <section class="slide-content"><h2>Can't code without them, so code against them!</h2>
-<p><a href="http://durden.github.com/defensive_coding">http://durden.github.com/defensive_coding</a></p>
+<p><a href="http://durden.github.io/defensive_coding">http://durden.github.io/defensive_coding</a></p>
 </section>
                 
                 <div class="presenter_notes">
@@ -211,22 +211,90 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide has_code">
             <div>
                 
+                    <header><h1>Find the assumptions</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="c"># 1-D numpy array of data we loaded application with</span>
+<span class="lineno"> 3</span>     <span class="n">original_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span>     <span class="c"># User filtered data from GUI</span>
+<span class="lineno"> 7</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 8</span>     <span class="n">live_min</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno"> 9</span>     <span class="n">live_max</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">10</span> 
+<span class="lineno">11</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno">12</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">13</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">14</span> 
+<span class="lineno">15</span>     <span class="k">return</span> <span class="n">ratio</span>
+</pre></div>
+
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Normalize data range to [0 - 1] for a GUI widget</li>
+<li>Read data from model and GUI, return range [0 - 1]</li>
+<li>Incorrect calculation here could go unnoticed, far away from this function</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Assumptions</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno">1</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
+<span class="lineno">2</span> <span class="n">height</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">])</span>
+<span class="lineno">3</span> 
+<span class="lineno">4</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
+<span class="lineno">5</span> <span class="p">{</span><span class="s">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+<span class="lineno">6</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
+<span class="lineno">7</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
+<span class="lineno">8</span> <span class="ne">AssertionError</span><span class="p">:</span> <span class="s">&quot;age&quot;</span> <span class="nb">min</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.500000</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="n">given</span> <span class="p">(</span><span class="mf">10.000000</span><span class="p">)</span> <span class="n">colspan</span><span class="p">(</span><span class="mf">40.000000</span><span class="p">)</span>
+</pre></div>
+
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Negative numbers, numbers bigger than the actual data</li>
+<li>Clue you into where data is wrong</li>
+<li>Maybe it's correct data, just unexpected</li>
+<li>Maybe it's a specific set of data</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide has_code">
+            <div>
+                
                     <header><h1>Asserts</h1></header>
                 
                 
-                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">button_state</span><span class="p">):</span>
-<span class="lineno"> 2</span>     <span class="c"># 1-D numpy array of data</span>
-<span class="lineno"> 3</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
-<span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
-<span class="lineno"> 5</span> 
-<span class="lineno"> 6</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno"> 7</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno"> 8</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno"> 9</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
-<span class="lineno">10</span>             <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; min (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">)&#39;</span><span class="p">)</span>
-<span class="lineno">11</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
-<span class="lineno">12</span>             <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; max (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">)&#39;</span><span class="p">)</span>
-<span class="lineno">13</span>     <span class="k">return</span> <span class="n">ratio</span>
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno">1</span> <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
+<span class="lineno">2</span>         <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; min (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">) colspan (</span><span class="si">%f</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="lineno">3</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">],</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
+<span class="lineno">4</span> 
+<span class="lineno">5</span> <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
+<span class="lineno">6</span>         <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; max (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">) colspan (</span><span class="si">%f</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="lineno">7</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">],</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
 </pre></div>
 </section>
                 
@@ -364,25 +432,27 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                     <header><h1>Avoid this</h1></header>
                 
                 
-                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">button_state</span><span class="p">):</span>
-<span class="lineno"> 2</span>     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
-<span class="lineno"> 3</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-<span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-<span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
-<span class="lineno"> 6</span> 
-<span class="lineno"> 7</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
-<span class="lineno"> 8</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colname</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="lineno"> 3</span>     <span class="n">original_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 6</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
+<span class="lineno"> 7</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 8</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
 <span class="lineno"> 9</span> 
-<span class="lineno">10</span>     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_data</span><span class="p">),</span> <span class="s">&#39;Empty live data&#39;</span>
-<span class="lineno">11</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
-<span class="lineno">12</span> 
-<span class="lineno">13</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno">14</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">15</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">16</span> 
-<span class="lineno">17</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-<span class="lineno">18</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-<span class="lineno">19</span>     <span class="k">return</span> <span class="n">ratio</span>
+<span class="lineno">10</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno">11</span>     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_data</span><span class="p">),</span> <span class="s">&#39;Empty live data&#39;</span>
+<span class="lineno">12</span>     <span class="n">live_min</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">13</span>     <span class="n">live_max</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">14</span> 
+<span class="lineno">15</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">17</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">18</span> 
+<span class="lineno">19</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">20</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+<span class="lineno">21</span>     <span class="k">return</span> <span class="n">ratio</span>
 </pre></div>
 </section>
                 
@@ -606,11 +676,116 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Unit Tests</h1></header>
+                    <header><h1>Unit tests</h1></header>
                 
+                
+                    <section class="slide-content"><ul>
+<li>Not just for Test Driven Development</li>
+<li>Old bugs have tendency to come back</li>
+<li>Re-factoring insurance</li>
+<li>Release early alphas, find bugs, write tests, repeat</li>
+<li>Don't forget doctests!</li>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Hard to get manager buy-in b/c it takes longer usually up-front</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: unit_tests.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Unit test benefits</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Improves documentation of bug fix</li>
+<li>Answer <a href="http://en.wikipedia.org/wiki/Five_Ws">5 Ws</a><ul>
+<li>http://en.wikipedia.org/wiki/Five_Ws</li>
+</ul>
+</li>
+<li>Future-proof code against duplicate bugs</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Think executable documentation!</li>
+<li>Document how you tested it, what the bug scenario was</li>
+<li>Good unit test is best doc for weird bug fix<ul>
+<li>test will include comments, data to re-create bug, steps for scenario</li>
+</ul>
+</li>
+<li>Refactoring has a tendency to allow old bugs to creep in</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: unit_tests.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Unit test downsides</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Hard to run</li>
+<li>Not usually located close to real code</li>
+<li>Some environments hard to duplicate</li>
+<li>False positives</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Doctests are nice b/c they are right there with code but can be ugly<ul>
+<li>Problems for documentation generators like sphinx?</li>
+</ul>
+</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: unit_tests.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Unit test tools</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Pytest</li>
+<li>Nose</li>
+<li>doctests</li>
+<li>Travis CI</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Tools to help mitigate the hard to run aspect of tests</li>
+</ul>
                     
                     </section>
                 </div>
@@ -643,16 +818,35 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>&lt;/soapbox&gt;</h1></header>
+                    <header><h1>FIXME: What should the order of these last 2 slides be?</h1></header>
                 
                 
-                    <section class="slide-content"><ul>
+                    <section class="slide-content"><h1>&lt;/soapbox&gt;</h1>
+<ul>
 <li>Questions?</li>
 </ul>
-<p><img src="images/microphone.jpg"/></p></section>
+<p><img src="images/microphone.jpg"/></p>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>This talk is pretty pessimistic b/c sadly a lot of being a programmer
+  means thinking of what can and will go wrong.  However, the irony of this
+  talk is that the ideas are presented in an optimistic manner.</li>
+<li>For example, 'here is your problem. now here is the easy solution.'</li>
+<li>This obviously isn't the real world:<ul>
+<li>Take these ideas and try it out</li>
+<li>Use what works, throw away what doesn't</li>
+<li>The important thing is to try something different and change your
+    mindset from preventing bugs to a mindset of they will happen no
+    matter what I do, so how can I fight back and make the
+    maintenance phase of a project easier now with the smallest
+    amount of effort.</li>
+</ul>
+</li>
+</ul>
                     
                     </section>
                 </div>
