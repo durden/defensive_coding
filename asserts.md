@@ -5,22 +5,64 @@
 
 --------------------------------------------------
 
+# Find the assumptions
+
+    !python
+    def normalize_ranges(colname):
+        # 1-D numpy array of data we loaded application with
+        original_range = get_base_range(colname)
+        colspan = original_range['datamax'] - original_range['datamin']
+
+        # User filtered data from GUI
+        live_data = get_column_data(colname)
+        live_min = numpy.min(live_data)
+        live_max = numpy.max(live_data)
+
+        ratio = {}
+        ratio['min'] = (live_min - original_range['datamin']) / colspan
+        ratio['max'] = (live_max - original_range['datamin']) / colspan
+
+        return ratio
+
+# Presenter notes
+
+- Normalize data range to [0 - 1] for a GUI widget
+- Read data from model and GUI, return range [0 - 1]
+- Incorrect calculation here could go unnoticed, far away from this function
+
+--------------------------------------------------
+
+# Assumptions
+
+    !python
+    age = numpy.array([10.0, 20.0, 30.0, 40.0, 50.0])
+    height = numpy.array([60.0, 66.0, 72.0, 63.0, 66.0])
+
+    >>> normalize_ranges('age')
+    {'max': 1.0, 'min': 0.0}
+    >>> age = numpy.array([-10.0, 20.0, 30.0, 40.0, 50.0])
+    >>> normalize_ranges('age')
+    AssertionError: "age" min (-0.500000) not in [0-1] given (10.000000) colspan(40.000000)
+
+# Presenter notes
+
+- Negative numbers, numbers bigger than the actual data
+- Clue you into where data is wrong
+- Maybe it's correct data, just unexpected
+- Maybe it's a specific set of data
+
+--------------------------------------------------
+
 # Asserts
 
     !python
-    def normalize_ranges(button_state):
-        # 1-D numpy array of data
-        live_data = get_column_data(button_state['colname'])
-        colspan = numpy.max(live_data) - numpy.min(live_data)
+    assert 0.0 <= ratio['min'] <= 1.0, (
+            '"%s" min (%f) not in [0-1] given (%f) colspan (%f)' % (
+            colname, ratio['min'], original_range['datamin'], colspan))
 
-        ratio = {}
-        ratio['min'] = button_state['datamin'] / colspan
-        ratio['max'] = button_state['datamax'] / colspan
-        assert 0.0 <= ratio['min'] <= 1.0, (
-                '"%s" min (%f) not in [0-1] given (%f)')
-        assert 0.0 <= ratio['max'] <= 1.0, (
-                '"%s" max (%f) not in [0-1] given (%f)')
-        return ratio
+    assert 0.0 <= ratio['max'] <= 1.0, (
+            '"%s" max (%f) not in [0-1] given (%f) colspan (%f)' % (
+            colname, ratio['max'], original_range['datamax'], colspan))
 
 --------------------------------------------------
 
@@ -81,21 +123,23 @@
 .fx: small
 
     !python
-    def normalize_ranges(button_state):
-        assert isinstance(button_state['colname'], str)
-        assert button_state['datamin'] >= 0
-        assert button_state['datamax'] >= 0
-        assert button_state['datamin'] <= button_state['datamax']
-
-        live_data = get_column_data(button_state['colname'])
-        colspan = numpy.max(live_data) - numpy.min(live_data)
-
-        assert len(live_data), 'Empty live data'
+    def normalize_ranges(colname):
+        assert isinstance(colname, str)
+        original_range = get_base_range(colname)
+        assert original_range['datamin'] >= 0
+        assert original_range['datamax'] >= 0
+        assert original_range['datamin'] <= original_range['datamax']
+        colspan = original_range['datamax'] - original_range['datamin']
         assert colspan >= 0, 'Colspan (%f) is negative' % (colspan)
 
+        live_data = get_column_data(colname)
+        assert len(live_data), 'Empty live data'
+        live_min = numpy.min(live_data)
+        live_max = numpy.max(live_data)
+
         ratio = {}
-        ratio['min'] = button_state['datamin'] / colspan
-        ratio['max'] = button_state['datamax'] / colspan
+        ratio['min'] = (live_min - original_range['datamin']) / colspan
+        ratio['max'] = (live_max - original_range['datamin']) / colspan
 
         assert 0.0 <= ratio['min'] <= 1.0
         assert 0.0 <= ratio['max'] <= 1.0
