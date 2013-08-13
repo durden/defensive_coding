@@ -10,8 +10,8 @@
     !python
     def normalize_ranges(colname):
         # 1-D numpy array of data we loaded application with
-        original_range = get_base_range(colname)
-        colspan = original_range['datamax'] - original_range['datamin']
+        orig_range = get_base_range(colname)
+        colspan = orig_range['datamax'] - orig_range['datamin']
 
         # User filtered data from GUI
         live_data = get_column_data(colname)
@@ -19,9 +19,8 @@
         live_max = numpy.max(live_data)
 
         ratio = {}
-        ratio['min'] = (live_min - original_range['datamin']) / colspan
-        ratio['max'] = (live_max - original_range['datamin']) / colspan
-
+        ratio['min'] = (live_min - orig_range['datamin']) / colspan
+        ratio['max'] = (live_max - orig_range['datamin']) / colspan
         return ratio
 
 # Presenter notes
@@ -58,11 +57,11 @@
     !python
     assert 0.0 <= ratio['min'] <= 1.0, (
             '"%s" min (%f) not in [0-1] given (%f) colspan (%f)' % (
-            colname, ratio['min'], original_range['datamin'], colspan))
+            colname, ratio['min'], orig_range['datamin'], colspan))
 
     assert 0.0 <= ratio['max'] <= 1.0, (
             '"%s" max (%f) not in [0-1] given (%f) colspan (%f)' % (
-            colname, ratio['max'], original_range['datamax'], colspan))
+            colname, ratio['max'], orig_range['datamax'], colspan))
 
 --------------------------------------------------
 
@@ -125,11 +124,11 @@
     !python
     def normalize_ranges(colname):
         assert isinstance(colname, str)
-        original_range = get_base_range(colname)
-        assert original_range['datamin'] >= 0
-        assert original_range['datamax'] >= 0
-        assert original_range['datamin'] <= original_range['datamax']
-        colspan = original_range['datamax'] - original_range['datamin']
+        orig_range = get_base_range(colname)
+        assert orig_range['datamin'] >= 0
+        assert orig_range['datamax'] >= 0
+        assert orig_range['datamin'] <= orig_range['datamax']
+        colspan = orig_range['datamax'] - orig_range['datamin']
         assert colspan >= 0, 'Colspan (%f) is negative' % (colspan)
 
         live_data = get_column_data(colname)
@@ -138,8 +137,8 @@
         live_max = numpy.max(live_data)
 
         ratio = {}
-        ratio['min'] = (live_min - original_range['datamin']) / colspan
-        ratio['max'] = (live_max - original_range['datamin']) / colspan
+        ratio['min'] = (live_min - orig_range['datamin']) / colspan
+        ratio['max'] = (live_max - orig_range['datamin']) / colspan
 
         assert 0.0 <= ratio['min'] <= 1.0
         assert 0.0 <= ratio['max'] <= 1.0
