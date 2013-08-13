@@ -158,35 +158,6 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
             </div>
         </section>
      
-      <!-- slide source: defensive_style.md -->
-        <section class="slide has_code">
-            <div>
-                
-                    <header><h1>Example</h1></header>
-                
-                
-                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">original_data_range</span><span class="p">):</span>
-<span class="lineno"> 2</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span>     <span class="c"># 1-D numpy array of data</span>
-<span class="lineno"> 5</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">button_state</span><span class="p">[</span><span class="s">&#39;colname&#39;</span><span class="p">])</span>
-<span class="lineno"> 6</span> 
-<span class="lineno"> 7</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno"> 8</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno"> 9</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">button_state</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">10</span> 
-<span class="lineno">11</span>     <span class="k">return</span> <span class="n">ratio</span>
-</pre></div>
-</section>
-                
-                <div class="presenter_notes">
-                    <section>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
       <!-- slide source: asserts.md -->
         <section class="slide">
             <div>
@@ -216,8 +187,8 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                     <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
 <span class="lineno"> 2</span>     <span class="c"># 1-D numpy array of data we loaded application with</span>
-<span class="lineno"> 3</span>     <span class="n">original_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
-<span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 3</span>     <span class="n">orig_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
 <span class="lineno"> 5</span> 
 <span class="lineno"> 6</span>     <span class="c"># User filtered data from GUI</span>
 <span class="lineno"> 7</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
@@ -225,10 +196,9 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <span class="lineno"> 9</span>     <span class="n">live_max</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
 <span class="lineno">10</span> 
 <span class="lineno">11</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno">12</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">13</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">14</span> 
-<span class="lineno">15</span>     <span class="k">return</span> <span class="n">ratio</span>
+<span class="lineno">12</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">13</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">14</span>     <span class="k">return</span> <span class="n">ratio</span>
 </pre></div>
 
 </section>
@@ -290,11 +260,11 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                     <section class="slide-content"><div class="highlight"><pre><span class="lineno">1</span> <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
 <span class="lineno">2</span>         <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; min (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">) colspan (</span><span class="si">%f</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
-<span class="lineno">3</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">],</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
+<span class="lineno">3</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">],</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
 <span class="lineno">4</span> 
 <span class="lineno">5</span> <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span>
 <span class="lineno">6</span>         <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; max (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">) colspan (</span><span class="si">%f</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
-<span class="lineno">7</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">],</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
+<span class="lineno">7</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">],</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
 </pre></div>
 </section>
                 
@@ -434,11 +404,11 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                     <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
 <span class="lineno"> 2</span>     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colname</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-<span class="lineno"> 3</span>     <span class="n">original_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
-<span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-<span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-<span class="lineno"> 6</span>     <span class="k">assert</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
-<span class="lineno"> 7</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 3</span>     <span class="n">orig_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 4</span>     <span class="k">assert</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 5</span>     <span class="k">assert</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="lineno"> 6</span>     <span class="k">assert</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span>
+<span class="lineno"> 7</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
 <span class="lineno"> 8</span>     <span class="k">assert</span> <span class="n">colspan</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;Colspan (</span><span class="si">%f</span><span class="s">) is negative&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">colspan</span><span class="p">)</span>
 <span class="lineno"> 9</span> 
 <span class="lineno">10</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
@@ -447,8 +417,8 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <span class="lineno">13</span>     <span class="n">live_max</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
 <span class="lineno">14</span> 
 <span class="lineno">15</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
-<span class="lineno">17</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">original_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">17</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
 <span class="lineno">18</span> 
 <span class="lineno">19</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
 <span class="lineno">20</span>     <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
@@ -815,17 +785,13 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         </section>
      
       <!-- slide source: references.md -->
-        <section class="slide">
+        <section class="slide shout">
             <div>
                 
-                    <header><h1>FIXME: What should the order of these last 2 slides be?</h1></header>
+                    <header><h1>Questions?</h1></header>
                 
                 
-                    <section class="slide-content"><h1>&lt;/soapbox&gt;</h1>
-<ul>
-<li>Questions?</li>
-</ul>
-<p><img src="images/microphone.jpg"/></p>
+                    <section class="slide-content"><h2>&lt;/soapbox&gt;</h2>
 </section>
                 
                 <div class="presenter_notes">
