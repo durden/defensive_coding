@@ -6,14 +6,11 @@
 - [http://codrspace.com/durden](http://codrspace.com/durden)
 
 --------------------------------------------------
+# Questions?
+.fx: shout
 
-# FIXME: What should the order of these last 2 slides be?
+## &lt;/soapbox&gt;
 
-# &lt;/soapbox&gt;
-
-- Questions?
-
-<img src="images/microphone.jpg"/>
 
 # Presenter notes
 
