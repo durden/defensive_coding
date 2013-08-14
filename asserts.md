@@ -34,14 +34,22 @@
 # Assumptions
 
     !python
+    # Base/starting data
     age = numpy.array([10.0, 20.0, 30.0, 40.0, 50.0])
     height = numpy.array([60.0, 66.0, 72.0, 63.0, 66.0])
 
+    # Starting data
     >>> normalize_ranges('age')
     {'max': 1.0, 'min': 0.0}
+
+    # Change current range, simulate user filtering data
+    >>> age = numpy.array([20.0, 30.0, 40.0, 50.0])
+    >>> normalize_ranges('age')
+    {'max': 1.0, 'min': 0.25}
+
     >>> age = numpy.array([-10.0, 20.0, 30.0, 40.0, 50.0])
     >>> normalize_ranges('age')
-    AssertionError: "age" min (-0.500000) not in [0-1] given (10.000000) colspan(40.000000)
+    {'max': 1.0, 'min': -0.5}
 
 # Presenter notes
 
@@ -49,6 +57,37 @@
 - Clue you into where data is wrong
 - Maybe it's correct data, just unexpected
 - Maybe it's a specific set of data
+
+--------------------------------------------------
+
+# Lazy programmer
+
+    !python
+    def normalize_ranges(colname):
+        orig_range = get_base_range(colname)
+
+        # Max will always be greater than the minimum
+        colspan = orig_range['datamax'] - orig_range['datamin']
+
+        # User filtered data from GUI
+        live_data = get_column_data(colname)
+        live_min = numpy.min(live_data)
+        live_max = numpy.max(live_data)
+
+        ratio = {}
+
+        # Numbers should always be positive
+        ratio['min'] = (live_min - orig_range['datamin']) / colspan
+        ratio['max'] = (live_max - orig_range['datamin']) / colspan
+
+        # Should be between [0 - 1]
+        return ratio
+
+# Presenter notes
+
+- These comments are a start, but their not executable. If we disobey them
+  nothing happens.
+- Too easy to go unnoticed
 
 --------------------------------------------------
 
@@ -62,6 +101,11 @@
     assert 0.0 <= ratio['max'] <= 1.0, (
             '"%s" max (%f) not in [0-1] given (%f) colspan (%f)' % (
             colname, ratio['max'], orig_range['datamax'], colspan))
+
+# Presenter notes
+
+- Add asserts to verify we return correct answer, not that user passed in
+  correct data
 
 --------------------------------------------------
 
@@ -92,7 +136,7 @@
 
 # Debug info when it counts
 
-- Good messages include parameters and local state
+- Good messages with parameters/local state
 - Invalid assumptions about environment
 - Avoid unreproducible bugs
 
@@ -100,6 +144,7 @@
 
 - New use cases
 - Documentation oversights
+- Remember our assert messages? They showed input params and our state
 
 --------------------------------------------------
 
