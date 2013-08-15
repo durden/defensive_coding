@@ -3,8 +3,7 @@
 - Not just for Test Driven Development
 - Old bugs have tendency to come back
 - Re-factoring insurance
-- Release early alphas, find bugs, write tests, repeat
-- Don't forget doctests!
+- Release early, find bugs, write tests, repeat
 
 # Presenter notes
 

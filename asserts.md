@@ -35,10 +35,8 @@
 
     !python
     # Base/starting data
-    age = numpy.array([10.0, 20.0, 30.0, 40.0, 50.0])
-    height = numpy.array([60.0, 66.0, 72.0, 63.0, 66.0])
-
-    # Starting data
+    >>> age = numpy.array([10.0, 20.0, 30.0, 40.0, 50.0])
+    >>> height = numpy.array([60.0, 66.0, 72.0, 63.0, 66.0])
     >>> normalize_ranges('age')
     {'max': 1.0, 'min': 0.0}
 
@@ -61,6 +59,7 @@
 --------------------------------------------------
 
 # Lazy programmer
+.fx: small
 
     !python
     def normalize_ranges(colname):
@@ -148,6 +147,9 @@
 
 - New use cases
 - Documentation oversights
+
+# Presenter notes
+
 - Remember our assert messages? They showed input params and our state
 
 --------------------------------------------------
