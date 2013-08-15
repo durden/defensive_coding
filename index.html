@@ -340,8 +340,8 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 
                     <section class="slide-content"><ul>
-<li>Clear intent/docs</li>
-<li>Complain early and often</li>
+<li>Executable documentation</li>
+<li>Close the gap</li>
 <li>Debug info when it counts</li>
 </ul>
 </section>
@@ -362,18 +362,22 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Clear intent</h1></header>
+                    <header><h1>Executable documentation</h1></header>
                 
                 
                     <section class="slide-content"><ul>
-<li>doctests++</li>
 <li>Runs alongside production code</li>
-<li>Enabled by default</li>
-<li>Executable documentation</li>
-</ul></section>
+<li>Normal docs are stale</li>
+<li>Higher degree of confidence</li>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Better than regular docs b/c higher chances of being up to date</li>
+</ul>
                     
                     </section>
                 </div>
@@ -384,13 +388,14 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide">
             <div>
                 
-                    <header><h1>Complain early, often</h1></header>
+                    <header><h1>Close the gap</h1></header>
                 
                 
                     <section class="slide-content"><ul>
 <li>Debugging is hard</li>
+<li>Complain early and often</li>
 <li>Close gap between symptom and cause</li>
-<li>Alert return conditions</li>
+<li>Alert invalid conditions ASAP</li>
 </ul></section>
                 
                 <div class="presenter_notes">
@@ -424,6 +429,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                     <section>
                     
                         <ul>
+<li>Add in debug information you'll need BEFORE you need it!</li>
 <li>Remember our assert messages? They showed input params and our state</li>
 </ul>
                     
@@ -527,33 +533,6 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
             </div>
         </section>
      
-      <!-- slide source: asserts.md -->
-        <section class="slide">
-            <div>
-                
-                    <header><h1>Assert benefits</h1></header>
-                
-                
-                    <section class="slide-content"><ul>
-<li>Clear intent/docs</li>
-<li>Complain early and often</li>
-<li>Debug info when it counts</li>
-</ul>
-</section>
-                
-                <div class="presenter_notes">
-                    <section>
-                    
-                        <ul>
-<li>Again, asserts are really cool so I just want to emphasize again the benefits
-  despite the downsides</li>
-</ul>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
       <!-- slide source: logging.md -->
         <section class="slide">
             <div>
@@ -640,8 +619,8 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 
                     <section class="slide-content"><ul>
-<li>Invaluable in error scenarios</li>
 <li>Built-in with exception level</li>
+<li>Invaluable in error scenarios</li>
 </ul></section>
                 
                 <div class="presenter_notes">
@@ -749,9 +728,8 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                     <section class="slide-content"><ul>
 <li>Not just for Test Driven Development</li>
-<li>Old bugs have tendency to come back</li>
+<li>Test bug fixes</li>
 <li>Re-factoring insurance</li>
-<li>Release early, find bugs, write tests, repeat</li>
 </ul>
 </section>
                 
@@ -760,6 +738,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                     
                         <ul>
 <li>Hard to get manager buy-in b/c it takes longer usually up-front</li>
+<li>Release early, find bugs, write tests, repeat</li>
 </ul>
                     
                     </section>
@@ -781,6 +760,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 </ul>
 </li>
 <li>Future-proof code against duplicate bugs</li>
+<li>Old bugs have tendency to come back</li>
 </ul>
 </section>
                 
