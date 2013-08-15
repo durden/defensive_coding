@@ -224,14 +224,22 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                     <header><h1>Assumptions</h1></header>
                 
                 
-                    <section class="slide-content"><div class="highlight"><pre><span class="lineno">1</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
-<span class="lineno">2</span> <span class="n">height</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">])</span>
-<span class="lineno">3</span> 
-<span class="lineno">4</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
-<span class="lineno">5</span> <span class="p">{</span><span class="s">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
-<span class="lineno">6</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
-<span class="lineno">7</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
-<span class="lineno">8</span> <span class="ne">AssertionError</span><span class="p">:</span> <span class="s">&quot;age&quot;</span> <span class="nb">min</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.500000</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="n">given</span> <span class="p">(</span><span class="mf">10.000000</span><span class="p">)</span> <span class="n">colspan</span><span class="p">(</span><span class="mf">40.000000</span><span class="p">)</span>
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="c"># Base/starting data</span>
+<span class="lineno"> 2</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
+<span class="lineno"> 3</span> <span class="n">height</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">])</span>
+<span class="lineno"> 4</span> 
+<span class="lineno"> 5</span> <span class="c"># Starting data</span>
+<span class="lineno"> 6</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
+<span class="lineno"> 7</span> <span class="p">{</span><span class="s">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+<span class="lineno"> 8</span> 
+<span class="lineno"> 9</span> <span class="c"># Change current range, simulate user filtering data</span>
+<span class="lineno">10</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
+<span class="lineno">11</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
+<span class="lineno">12</span> <span class="p">{</span><span class="s">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}</span>
+<span class="lineno">13</span> 
+<span class="lineno">14</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">])</span>
+<span class="lineno">15</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">normalize_ranges</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">)</span>
+<span class="lineno">16</span> <span class="p">{</span><span class="s">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;min&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">}</span>
 </pre></div>
 
 </section>
@@ -255,6 +263,50 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         <section class="slide has_code">
             <div>
                 
+                    <header><h1>Lazy programmer</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
+<span class="lineno"> 2</span>     <span class="n">orig_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span>     <span class="c"># Max will always be greater than the minimum</span>
+<span class="lineno"> 5</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>     <span class="c"># User filtered data from GUI</span>
+<span class="lineno"> 8</span>     <span class="n">live_data</span> <span class="o">=</span> <span class="n">get_column_data</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+<span class="lineno"> 9</span>     <span class="n">live_min</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">10</span>     <span class="n">live_max</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">live_data</span><span class="p">)</span>
+<span class="lineno">11</span> 
+<span class="lineno">12</span>     <span class="n">ratio</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno">13</span> 
+<span class="lineno">14</span>     <span class="c"># Numbers should always be positive</span>
+<span class="lineno">15</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_min</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">16</span>     <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">live_max</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">colspan</span>
+<span class="lineno">17</span> 
+<span class="lineno">18</span>     <span class="c"># Should be between [0 - 1]</span>
+<span class="lineno">19</span>     <span class="k">return</span> <span class="n">ratio</span>
+</pre></div>
+
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>These comments are a start, but their not executable. If we disobey them
+  nothing happens.</li>
+<li>Too easy to go unnoticed</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
+        <section class="slide has_code">
+            <div>
+                
                     <header><h1>Asserts</h1></header>
                 
                 
@@ -266,10 +318,16 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <span class="lineno">6</span>         <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; max (</span><span class="si">%f</span><span class="s">) not in [0-1] given (</span><span class="si">%f</span><span class="s">) colspan (</span><span class="si">%f</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span>
 <span class="lineno">7</span>         <span class="n">colname</span><span class="p">,</span> <span class="n">ratio</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">],</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">],</span> <span class="n">colspan</span><span class="p">))</span>
 </pre></div>
+
 </section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Add asserts to verify we return correct answer, not that user passed in
+  correct data</li>
+</ul>
                     
                     </section>
                 </div>
@@ -287,10 +345,15 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <li>Clear intent/docs</li>
 <li>Complain early and often</li>
 <li>Debug info when it counts</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Here's just a high-level view of the benefits we're going to dive into</li>
+</ul>
                     
                     </section>
                 </div>
@@ -348,7 +411,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 
                     <section class="slide-content"><ul>
-<li>Good messages include parameters and local state</li>
+<li>Good messages with parameters/local state</li>
 <li>Invalid assumptions about environment</li>
 <li>Avoid unreproducible bugs</li>
 </ul>
@@ -356,6 +419,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <ul>
 <li>New use cases</li>
 <li>Documentation oversights</li>
+<li>Remember our assert messages? They showed input params and our state</li>
 </ul></section>
                 
                 <div class="presenter_notes">
@@ -461,6 +525,33 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
             </div>
         </section>
      
+      <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Assert benefits</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Clear intent/docs</li>
+<li>Complain early and often</li>
+<li>Debug info when it counts</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Again, asserts are really cool so I just want to emphasize again the benefits
+  despite the downsides</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
       <!-- slide source: logging.md -->
         <section class="slide">
             <div>
@@ -473,10 +564,15 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
 <li>Dynamic control</li>
 <li>Tracebacks</li>
 <li>Higher-level combination with asserts</li>
-</ul></section>
+</ul>
+</section>
                 
                 <div class="presenter_notes">
                     <section>
+                    
+                        <ul>
+<li>Here's just a high-level view of some of the benefits of logging</li>
+</ul>
                     
                     </section>
                 </div>
