@@ -110,8 +110,8 @@
 
 # Assert benefits
 
-- Clear intent/docs
-- Complain early and often
+- Executable documentation
+- Close the gap
 - Debug info when it counts
 
 # Presenter notes
@@ -120,20 +120,24 @@
 
 --------------------------------------------------
 
-# Clear intent
+# Executable documentation
 
-- doctests++
 - Runs alongside production code
-- Enabled by default
-- Executable documentation
+- Normal docs are stale
+- Higher degree of confidence
+
+# Presenter notes
+
+- Better than regular docs b/c higher chances of being up to date
 
 --------------------------------------------------
 
-# Complain early, often
+# Close the gap
 
 - Debugging is hard
+- Complain early and often
 - Close gap between symptom and cause
-- Alert return conditions
+- Alert invalid conditions ASAP
 
 --------------------------------------------------
 
@@ -150,6 +154,7 @@
 
 # Presenter notes
 
+- Add in debug information you'll need BEFORE you need it!
 - Remember our assert messages? They showed input params and our state
 
 --------------------------------------------------

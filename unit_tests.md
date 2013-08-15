@@ -1,13 +1,13 @@
 # Unit tests
 
 - Not just for Test Driven Development
-- Old bugs have tendency to come back
+- Test bug fixes
 - Re-factoring insurance
-- Release early, find bugs, write tests, repeat
 
 # Presenter notes
 
 - Hard to get manager buy-in b/c it takes longer usually up-front
+- Release early, find bugs, write tests, repeat
 
 --------------------------------------------------
 
@@ -17,6 +17,7 @@
 - Answer [5 Ws](http://en.wikipedia.org/wiki/Five_Ws)
     - http://en.wikipedia.org/wiki/Five_Ws
 - Future-proof code against duplicate bugs
+- Old bugs have tendency to come back
 
 # Presenter notes
 

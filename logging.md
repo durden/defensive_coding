@@ -35,8 +35,8 @@
 
 # Tracebacks
 
-- Invaluable in error scenarios
 - Built-in with exception level
+- Invaluable in error scenarios
 
 --------------------------------------------------
 
