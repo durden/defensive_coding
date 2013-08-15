@@ -115,6 +115,10 @@
 - Complain early and often
 - Debug info when it counts
 
+# Presenter notes
+
+- Here's just a high-level view of the benefits we're going to dive into
+
 --------------------------------------------------
 
 # Clear intent
@@ -200,3 +204,16 @@
 # Presenter Notes
 - Checking returns can allow you to complain about inputs if you get wrong
   answer, so it's a 2 for 1
+
+--------------------------------------------------
+
+# Assert benefits
+
+- Clear intent/docs
+- Complain early and often
+- Debug info when it counts
+
+# Presenter notes
+
+- Again, asserts are really cool so I just want to emphasize again the benefits
+  despite the downsides

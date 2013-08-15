@@ -5,6 +5,10 @@
 - Tracebacks
 - Higher-level combination with asserts
 
+# Presenter notes
+
+- Here's just a high-level view of some of the benefits of logging
+
 --------------------------------------------------
 
 # Logging levels
