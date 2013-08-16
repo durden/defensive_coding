@@ -9,7 +9,7 @@
 
     !python
     def normalize_ranges(colname):
-        # 1-D numpy array of data we loaded application with
+        # Range of 1-D numpy array we loaded application with
         orig_range = get_base_range(colname)
         colspan = orig_range['datamax'] - orig_range['datamin']
 
