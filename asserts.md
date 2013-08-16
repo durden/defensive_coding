@@ -174,6 +174,18 @@
 
 --------------------------------------------------
 
+# Good assert usage
+
+- Check return values, not inputs
+- Document usage in style guide
+- Don't ruin duck-typing
+
+# Presenter Notes
+- Checking returns can allow you to complain about inputs if you get wrong
+  answer, so it's a 2 for 1
+
+--------------------------------------------------
+
 # Avoid this
 .fx: small
 
@@ -199,15 +211,3 @@
         assert 0.0 <= ratio['min'] <= 1.0
         assert 0.0 <= ratio['max'] <= 1.0
         return ratio
-
---------------------------------------------------
-
-# Good assert usage
-
-- Check return values, not inputs
-- Document usage in style guide
-- Don't ruin duck-typing
-
-# Presenter Notes
-- Checking returns can allow you to complain about inputs if you get wrong
-  answer, so it's a 2 for 1
