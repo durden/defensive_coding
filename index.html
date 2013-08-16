@@ -186,7 +186,7 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 
                     <section class="slide-content"><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">normalize_ranges</span><span class="p">(</span><span class="n">colname</span><span class="p">):</span>
-<span class="lineno"> 2</span>     <span class="c"># 1-D numpy array of data we loaded application with</span>
+<span class="lineno"> 2</span>     <span class="c"># Range of 1-D numpy array we loaded application with</span>
 <span class="lineno"> 3</span>     <span class="n">orig_range</span> <span class="o">=</span> <span class="n">get_base_range</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
 <span class="lineno"> 4</span>     <span class="n">colspan</span> <span class="o">=</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">orig_range</span><span class="p">[</span><span class="s">&#39;datamin&#39;</span><span class="p">]</span>
 <span class="lineno"> 5</span> 
@@ -468,6 +468,33 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
         </section>
      
       <!-- slide source: asserts.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Good assert usage</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Check return values, not inputs</li>
+<li>Document usage in style guide</li>
+<li>Don't ruin duck-typing</li>
+</ul>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <ul>
+<li>Checking returns can allow you to complain about inputs if you get wrong
+  answer, so it's a 2 for 1</li>
+</ul>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: asserts.md -->
         <section class="slide has_code small">
             <div>
                 
@@ -500,33 +527,6 @@ could be misused mischievously or inadvertently to catastrophic effect.</p>
                 
                 <div class="presenter_notes">
                     <section>
-                    
-                    </section>
-                </div>
-            </div>
-        </section>
-     
-      <!-- slide source: asserts.md -->
-        <section class="slide">
-            <div>
-                
-                    <header><h1>Good assert usage</h1></header>
-                
-                
-                    <section class="slide-content"><ul>
-<li>Check return values, not inputs</li>
-<li>Document usage in style guide</li>
-<li>Don't ruin duck-typing</li>
-</ul>
-</section>
-                
-                <div class="presenter_notes">
-                    <section>
-                    
-                        <ul>
-<li>Checking returns can allow you to complain about inputs if you get wrong
-  answer, so it's a 2 for 1</li>
-</ul>
                     
                     </section>
                 </div>
