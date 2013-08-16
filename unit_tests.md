@@ -17,7 +17,7 @@
 - Answer [5 Ws](http://en.wikipedia.org/wiki/Five_Ws)
     - http://en.wikipedia.org/wiki/Five_Ws
 - Future-proof code against duplicate bugs
-- Old bugs have tendency to come back
+    - Old bugs have tendency to come back
 
 # Presenter notes
 
